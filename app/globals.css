@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-steel-900 bg-white antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+  }
+
+  /* Global focus-visible — keyboard navigation ring */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-navy-600;
+  }
+
+  /* Remove default outline for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  /* ── Layout ─────────────────────────────── */
+  .container-xl {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 lg:py-24;
+  }
+
+  /* ── Buttons ─────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-navy-900 text-white px-6 py-3 text-sm font-semibold rounded-none
+           hover:bg-navy-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600
+           transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-navy-900 text-navy-900 px-6 py-3 text-sm font-semibold rounded-none
+           hover:bg-navy-900 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600
+           transition-colors duration-200;
+  }
+
+  /* White button — for dark/navy backgrounds */
+  .btn-white {
+    @apply inline-flex items-center gap-2 bg-white text-navy-900 px-6 py-3 text-sm font-semibold rounded-none
+           hover:bg-steel-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+           transition-colors duration-200;
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center gap-2 border border-white text-white px-6 py-3 text-sm font-semibold rounded-none
+           hover:bg-white hover:text-navy-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+           transition-colors duration-200;
+  }
+
+  /* ── Cards ───────────────────────────────── */
+  .card {
+    @apply bg-white border border-steel-200 p-6 hover:border-navy-300 hover:shadow-md transition-all duration-200;
+  }
+
+  /* ── Section labels ──────────────────────── */
+  /* Use .section-label on light backgrounds, .section-label-light on dark */
+  .section-label {
+    @apply text-xs font-semibold tracking-widest uppercase text-navy-600 mb-3;
+  }
+
+  .section-label-light {
+    @apply text-xs font-semibold tracking-widest uppercase text-navy-300 mb-3;
+  }
+
+  /* ── Typography helpers ──────────────────── */
+  .section-title {
+    @apply text-3xl lg:text-4xl font-bold text-navy-900 leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-steel-600 mt-4 leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 0.75s linear infinite;
+}
