@@ -14,6 +14,7 @@ export default function IndustrialElectricalWorksPage() {
   return (
     <ServicePageLayout
       currentSlug="industrial-electrical-works"
+      image="/images/service-industrial-electrical-works.jpg"
       title={service.title}
       headline="Practical site electrical works for industrial facilities."
       intro="Bodatec delivers reliable on-site electrical installation and works for industrial plants — from cable installation and containment through to MCC connection and final testing. We work cleanly, safely, and in coordination with other site disciplines."

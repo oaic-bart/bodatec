@@ -6,6 +6,7 @@ import ServiceCard from '@/components/ui/ServiceCard'
 import CTABanner from '@/components/ui/CTABanner'
 import { services } from '@/data/services'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Services | Electrical Engineering & Technical Services',
@@ -82,11 +83,14 @@ export default function ServicesPage() {
       {/* How we work section */}
       <section className="section-padding bg-steel-50 border-y border-steel-200">
         <div className="container-xl">
-          <ImagePlaceholder
-            label="Services — commissioning or testing in progress"
-            hint="e.g. relay testing, cable testing, or site commissioning — 1280×400 or 3:1"
-            className="aspect-[3/1] w-full mb-12"
-          />
+          <div className="relative aspect-[3/1] w-full mb-12 rounded-2xl overflow-hidden">
+            <Image
+              src="/images/services-commissioning-testing.jpg"
+              alt="Commissioning and testing work in progress on electrical equipment"
+              fill
+              className="object-cover"
+            />
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div>
               <SectionHeading

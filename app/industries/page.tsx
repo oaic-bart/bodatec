@@ -6,6 +6,7 @@ import IndustryCard from '@/components/ui/IndustryCard'
 import CTABanner from '@/components/ui/CTABanner'
 import { industries } from '@/data/industries'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Industries We Serve | Utilities, Industrial, Renewable Energy | Bodatec',
@@ -132,11 +133,14 @@ export default function IndustriesPage() {
               </div>
             </div>
             <div className="space-y-5">
-              <ImagePlaceholder
-                label="Industry — Belgian infrastructure"
-                hint="e.g. substation, wind farm, or industrial plant — 640×360"
-                className="aspect-video w-full"
-              />
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/industry-belgian-infrastructure.jpg"
+                  alt="Belgian electrical infrastructure — substation and power grid"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             <div className="bg-navy-900 p-8 text-white">
               <p className="text-xs font-semibold uppercase tracking-widest text-navy-400 mb-6">
                 Key sectors in Belgium

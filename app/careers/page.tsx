@@ -12,7 +12,6 @@ import {
 } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import CTABanner from '@/components/ui/CTABanner'
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
 import { jobCategories } from '@/data/careers'
 
 export const metadata: Metadata = {
@@ -87,17 +86,6 @@ export default function CareersPage() {
           </div>
         </div>
       </section>
-
-      {/* Full-width image band */}
-      <div className="bg-steel-50 border-b border-steel-200">
-        <div className="container-xl py-0">
-          <ImagePlaceholder
-            label="Careers — working environment"
-            hint="e.g. wide shot of engineers on site, substation walkdown, or workshop — 1280×400 or 3:1"
-            className="aspect-[3/1] w-full"
-          />
-        </div>
-      </div>
 
       {/* Why work at Bodatec */}
       <section className="section-padding">

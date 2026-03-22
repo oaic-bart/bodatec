@@ -18,6 +18,7 @@ import IndustryCard from '@/components/ui/IndustryCard'
 import CTABanner from '@/components/ui/CTABanner'
 import StatsStrip from '@/components/ui/StatsStrip'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
+import Image from 'next/image'
 import { services } from '@/data/services'
 import { industries } from '@/data/industries'
 
@@ -138,12 +139,15 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <ImagePlaceholder
-              label="Hero — Engineer on site"
-              hint="e.g. engineer at switchgear / substation — 640×480 or 16:9"
-              variant="dark"
-              className="hidden lg:flex aspect-[4/3] w-full"
-            />
+            <div className="hidden lg:block relative aspect-[4/3] w-full rounded-2xl overflow-hidden">
+              <Image
+                src="/images/hero-engineer-on-site.jpg"
+                alt="Electrical engineer working on site at a substation"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
 
@@ -180,11 +184,14 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-4">
-              <ImagePlaceholder
-                label="Team / fieldwork photo"
-                hint="e.g. Bodatec team working on-site — 640×400 or 16:10"
-                className="aspect-[16/10] w-full"
-              />
+              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/team-fieldwork.jpg"
+                  alt="Bodatec team working on-site at an electrical facility"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 {capabilities.map((item) => (
                   <Link
@@ -351,11 +358,14 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-5">
-              <ImagePlaceholder
-                label="Careers — engineer portrait or team"
-                hint="e.g. technician working on switchgear — 640×360 or 16:9"
-                className="aspect-video w-full"
-              />
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/careers-engineer-portrait.jpg"
+                  alt="Electrical engineer at work on site"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="bg-navy-900 p-8 text-white">
                 <p className="section-label-light mb-5">What we offer</p>
                 <ul className="space-y-4" role="list">

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import CookieConsent from '@/components/ui/CookieConsent'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://bodatec.be'),
@@ -59,6 +60,7 @@ export default function RootLayout({
         <Header />
         <main id="main-content" className="flex-1">{children}</main>
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   )

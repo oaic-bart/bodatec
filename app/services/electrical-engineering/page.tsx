@@ -14,6 +14,7 @@ export default function ElectricalEngineeringPage() {
   return (
     <ServicePageLayout
       currentSlug="electrical-engineering"
+      image="/images/service-electrical-engineering.jpg"
       title={service.title}
       headline="Electrical engineering support that integrates with your project."
       intro="Bodatec provides qualified electrical engineers who can be deployed into project teams or work independently to produce and review engineering documentation, perform technical studies, and support equipment specification and FAT/SAT activities."

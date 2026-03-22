@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, CheckCircle, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 import CTABanner from '@/components/ui/CTABanner'
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
 import { services } from '@/data/services'
 
 interface ServicePageLayoutProps {
@@ -14,6 +14,7 @@ interface ServicePageLayoutProps {
   idealFor: string[]
   whyBodatec?: string[]
   currentSlug: string
+  image?: string
 }
 
 export default function ServicePageLayout({
@@ -26,6 +27,7 @@ export default function ServicePageLayout({
   idealFor,
   whyBodatec,
   currentSlug,
+  image,
 }: ServicePageLayoutProps) {
   const otherServices = services.filter((s) => s.slug !== currentSlug).slice(0, 4)
 
@@ -60,11 +62,16 @@ export default function ServicePageLayout({
             <div className="lg:col-span-2 space-y-12">
 
               {/* Service image */}
-              <ImagePlaceholder
-                label={`${title} — relevant site photo`}
-                hint="e.g. engineers performing this service on site — 800×450 or 16:9"
-                className="aspect-video w-full"
-              />
+              {image && (
+                <div className="relative aspect-video w-full rounded-2xl overflow-hidden">
+                  <Image
+                    src={image}
+                    alt={`${title} — Bodatec service`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
               {/* Overview — with left accent border */}
               <div className="border-l-4 border-navy-600 pl-6">

@@ -14,6 +14,7 @@ export default function TestingCommissioningPage() {
   return (
     <ServicePageLayout
       currentSlug="testing-commissioning"
+      image="/images/service-testing-commissioning.jpg"
       title={service.title}
       headline="Structured commissioning delivered by qualified electrical engineers."
       intro="Bodatec provides systematic pre-commissioning and commissioning services for electrical systems — from MV switchgear and protection relays to complete substation and plant installations. We follow rigorous test procedures and produce full documentation at every stage."

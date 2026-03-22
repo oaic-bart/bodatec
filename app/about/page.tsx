@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle, MapPin, Target, Award } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import CTABanner from '@/components/ui/CTABanner'
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'About Bodatec | Belgian Electrical Engineering Company',
@@ -101,11 +102,14 @@ export default function AboutPage() {
             </div>
 
             <div className="space-y-5">
-              <ImagePlaceholder
-                label="About — Bodatec team or office"
-                hint="e.g. team photo, engineering office, or site meeting — 640×400"
-                className="aspect-[16/10] w-full"
-              />
+              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/about-team-office.jpg"
+                  alt="Bodatec engineering team in an office setting"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="bg-navy-950 p-8 relative">
                 <span className="absolute top-5 left-6 text-5xl leading-none text-navy-700 font-serif select-none" aria-hidden="true">&ldquo;</span>
                 <p className="text-xs font-semibold uppercase tracking-widest text-navy-400 mb-4 pt-4">
@@ -187,11 +191,14 @@ export default function AboutPage() {
             </div>
 
             <div className="space-y-5">
-              <ImagePlaceholder
-                label="Project / site photo"
-                hint="e.g. substation, switchgear, or cable testing — 640×360"
-                className="aspect-video w-full"
-              />
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/project-site-photo.jpg"
+                  alt="Electrical project site with substation equipment"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             <div className="bg-navy-900 p-10 text-white">
               <p className="text-xs font-semibold uppercase tracking-widest text-navy-400 mb-6">
                 Company profile

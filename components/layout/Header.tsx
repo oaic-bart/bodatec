@@ -27,13 +27,15 @@ const navItems = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const pathname = usePathname()
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const triggerRef = useRef<HTMLAnchorElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     setServicesOpen(false)
     setMobileOpen(false)
+    setMobileServicesOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -48,14 +50,19 @@ export default function Header() {
 
   useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
-      if (e.key === 'Escape' && servicesOpen) {
-        setServicesOpen(false)
-        triggerRef.current?.focus()
+      if (e.key === 'Escape') {
+        if (servicesOpen) {
+          setServicesOpen(false)
+          triggerRef.current?.focus()
+        }
+        if (mobileOpen) {
+          setMobileOpen(false)
+        }
       }
     }
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [servicesOpen])
+  }, [servicesOpen, mobileOpen])
 
   return (
     <>
@@ -85,11 +92,12 @@ export default function Header() {
                     onMouseEnter={() => setServicesOpen(true)}
                     onMouseLeave={() => setServicesOpen(false)}
                   >
-                    <Link
-                      href={item.href}
+                    <button
                       ref={triggerRef}
+                      type="button"
                       aria-expanded={servicesOpen}
                       aria-haspopup="true"
+                      onClick={() => setServicesOpen(!servicesOpen)}
                       onFocus={() => setServicesOpen(true)}
                       className={cn(
                         'flex items-center gap-1 px-4 py-6 text-sm font-medium border-b-2 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-navy-600',
@@ -106,7 +114,7 @@ export default function Header() {
                         )}
                         aria-hidden="true"
                       />
-                    </Link>
+                    </button>
 
                     {servicesOpen && (
                       <div
@@ -189,31 +197,63 @@ export default function Header() {
             <nav className="container-xl py-4 space-y-1" aria-label="Mobile navigation links">
               {navItems.map((item) => (
                 <div key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'block px-3 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600',
-                      pathname === item.href || pathname.startsWith(item.href + '/')
-                        ? 'bg-navy-50 text-navy-900'
-                        : 'text-steel-700 hover:bg-steel-50 hover:text-navy-900'
-                    )}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                  {item.dropdown && (
-                    <div className="pl-4 mt-1 space-y-1 border-l border-steel-200 ml-3">
-                      {item.dropdown.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          href={sub.href}
-                          className="block px-3 py-2 text-xs text-steel-600 hover:text-navy-900 transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
+                  {item.dropdown ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                        aria-expanded={mobileServicesOpen}
+                        className={cn(
+                          'flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600',
+                          pathname.startsWith('/services')
+                            ? 'bg-navy-50 text-navy-900'
+                            : 'text-steel-700 hover:bg-steel-50 hover:text-navy-900'
+                        )}
+                      >
+                        {item.label}
+                        <ChevronDown
+                          className={cn(
+                            'w-4 h-4 transition-transform duration-150',
+                            mobileServicesOpen && 'rotate-180'
+                          )}
+                          aria-hidden="true"
+                        />
+                      </button>
+                      {mobileServicesOpen && (
+                        <div className="pl-4 mt-1 space-y-1 border-l border-steel-200 ml-3">
+                          <Link
+                            href="/services"
+                            className="block px-3 py-2 text-xs font-semibold text-navy-700 hover:text-navy-900 transition-colors"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            All Services
+                          </Link>
+                          {item.dropdown.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              className="block px-3 py-2 text-xs text-steel-600 hover:text-navy-900 transition-colors"
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'block px-3 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600',
+                        pathname === item.href || pathname.startsWith(item.href + '/')
+                          ? 'bg-navy-50 text-navy-900'
+                          : 'text-steel-700 hover:bg-steel-50 hover:text-navy-900'
+                      )}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
                   )}
                 </div>
               ))}
