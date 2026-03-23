@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 type ConsentState = {
   necessary: boolean
@@ -26,6 +27,7 @@ function storeConsent(consent: ConsentState) {
 }
 
 export default function CookieConsent() {
+  const t = useTranslations('cookies')
   const [visible, setVisible] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
   const [consent, setConsent] = useState<ConsentState>({
@@ -72,16 +74,14 @@ export default function CookieConsent() {
           <div className="flex flex-col lg:flex-row lg:items-center gap-4">
             <div className="flex-1">
               <p className="text-sm font-semibold text-navy-900 mb-1">
-                This website uses cookies
+                {t('title')}
               </p>
               <p className="text-sm text-steel-600 leading-relaxed">
-                We use cookies to ensure the proper functioning of our website and, with your consent,
-                for analytics purposes. We respect your privacy and comply with the EU General Data
-                Protection Regulation (GDPR). Read our{' '}
+                {t('body')}{' '}
                 <Link href="/privacy" className="text-navy-700 underline hover:text-navy-900">
-                  Privacy Policy
+                  {t('privacyLink')}
                 </Link>{' '}
-                for more details.
+                {t('bodyEnd')}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
@@ -89,26 +89,26 @@ export default function CookieConsent() {
                 onClick={() => setShowDetails(true)}
                 className="text-sm font-medium text-steel-600 hover:text-navy-900 underline transition-colors"
               >
-                Manage preferences
+                {t('managePreferences')}
               </button>
               <button
                 onClick={acceptNecessary}
                 className="btn-secondary text-xs py-2 px-4"
               >
-                Necessary only
+                {t('necessaryOnly')}
               </button>
               <button
                 onClick={acceptAll}
                 className="btn-primary text-xs py-2 px-4"
               >
-                Accept all
+                {t('acceptAll')}
               </button>
             </div>
           </div>
         ) : (
           <div>
             <p className="text-sm font-semibold text-navy-900 mb-4">
-              Manage cookie preferences
+              {t('manageTitle')}
             </p>
             <div className="space-y-3 mb-5">
               {/* Necessary */}
@@ -118,16 +118,15 @@ export default function CookieConsent() {
                   checked
                   disabled
                   className="mt-0.5 accent-navy-900"
-                  aria-label="Necessary cookies (always active)"
+                  aria-label={t('necessaryCookies')}
                 />
                 <div>
                   <p className="text-sm font-medium text-navy-900">
-                    Necessary cookies
-                    <span className="ml-2 text-xs text-steel-500 font-normal">Always active</span>
+                    {t('necessaryCookies')}
+                    <span className="ml-2 text-xs text-steel-500 font-normal">{t('alwaysActive')}</span>
                   </p>
                   <p className="text-xs text-steel-600 mt-0.5">
-                    Required for the website to function properly. These cannot be disabled.
-                    They include session management and cookie consent preferences.
+                    {t('necessaryDesc')}
                   </p>
                 </div>
               </div>
@@ -139,13 +138,12 @@ export default function CookieConsent() {
                   checked={consent.analytics}
                   onChange={(e) => setConsent({ ...consent, analytics: e.target.checked })}
                   className="mt-0.5 accent-navy-900"
-                  aria-label="Analytics cookies"
+                  aria-label={t('analyticsCookies')}
                 />
                 <div>
-                  <p className="text-sm font-medium text-navy-900">Analytics cookies</p>
+                  <p className="text-sm font-medium text-navy-900">{t('analyticsCookies')}</p>
                   <p className="text-xs text-steel-600 mt-0.5">
-                    Help us understand how visitors use our website by collecting anonymous
-                    usage data. This helps us improve our content and user experience.
+                    {t('analyticsDesc')}
                   </p>
                 </div>
               </div>
@@ -157,13 +155,12 @@ export default function CookieConsent() {
                   checked={consent.marketing}
                   onChange={(e) => setConsent({ ...consent, marketing: e.target.checked })}
                   className="mt-0.5 accent-navy-900"
-                  aria-label="Marketing cookies"
+                  aria-label={t('marketingCookies')}
                 />
                 <div>
-                  <p className="text-sm font-medium text-navy-900">Marketing cookies</p>
+                  <p className="text-sm font-medium text-navy-900">{t('marketingCookies')}</p>
                   <p className="text-xs text-steel-600 mt-0.5">
-                    Used to deliver relevant content and advertisements. We currently do not
-                    use marketing cookies, but this option is provided for transparency.
+                    {t('marketingDesc')}
                   </p>
                 </div>
               </div>
@@ -173,13 +170,13 @@ export default function CookieConsent() {
                 onClick={() => setShowDetails(false)}
                 className="text-sm font-medium text-steel-600 hover:text-navy-900 underline transition-colors"
               >
-                Back
+                {t('back')}
               </button>
               <button
                 onClick={savePreferences}
                 className="btn-primary text-xs py-2 px-4"
               >
-                Save preferences
+                {t('savePreferences')}
               </button>
             </div>
           </div>

@@ -1,24 +1,29 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { Mail, Phone, MapPin, Linkedin } from 'lucide-react'
 import { LogoMark } from '@/components/ui/Logo'
 
-const serviceLinks = [
-  { label: 'Electrical Engineering', href: '/services/electrical-engineering' },
-  { label: 'Testing & Commissioning', href: '/services/testing-commissioning' },
-  { label: 'Maintenance & Troubleshooting', href: '/services/maintenance-troubleshooting' },
-  { label: 'HV / MV Support', href: '/services/hv-mv-support' },
-  { label: 'Industrial Electrical Works', href: '/services/industrial-electrical-works' },
-  { label: 'Technical Specialist Support', href: '/services/technical-specialist-support' },
-]
-
-const companyLinks = [
-  { label: 'About Bodatec', href: '/about' },
-  { label: 'Industries', href: '/industries' },
-  { label: 'Careers', href: '/careers' },
-  { label: 'Contact', href: '/contact' },
-]
-
 export default function Footer() {
+  const t = useTranslations('footer')
+  const tn = useTranslations('nav')
+  const ts = useTranslations('services')
+
+  const serviceLinks = [
+    { label: ts('electrical-engineering.title'), href: '/services/electrical-engineering' },
+    { label: ts('testing-commissioning.title'), href: '/services/testing-commissioning' },
+    { label: ts('maintenance-troubleshooting.title'), href: '/services/maintenance-troubleshooting' },
+    { label: ts('hv-mv-support.title'), href: '/services/hv-mv-support' },
+    { label: ts('industrial-electrical-works.title'), href: '/services/industrial-electrical-works' },
+    { label: ts('technical-specialist-support.title'), href: '/services/technical-specialist-support' },
+  ]
+
+  const companyLinks = [
+    { label: t('aboutBodatec'), href: '/about' },
+    { label: tn('industries'), href: '/industries' },
+    { label: tn('careers'), href: '/careers' },
+    { label: 'Contact', href: '/contact' },
+  ]
+
   return (
     <footer className="bg-navy-950 text-steel-300" role="contentinfo" aria-label="Site footer">
 
@@ -45,13 +50,12 @@ export default function Footer() {
                   className="text-[9px] font-semibold tracking-widest uppercase mt-0.5 text-navy-400"
                   style={{ letterSpacing: '0.18em' }}
                 >
-                  Electrical Engineering
+                  {t('electricalEngineering')}
                 </span>
               </div>
             </Link>
             <p className="text-sm text-steel-400 leading-relaxed mb-6">
-              Belgian electrical engineering and technical services company. Practical expertise
-              for industrial, energy, and infrastructure clients across Belgium and Europe.
+              {t('tagline')}
             </p>
             <div className="flex items-center gap-3">
               <a
@@ -59,7 +63,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 border border-navy-600 flex items-center justify-center text-steel-400 hover:border-white hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors"
-                aria-label="Bodatec on LinkedIn (opens in new tab)"
+                aria-label={t('linkedinLabel')}
               >
                 <Linkedin className="w-4 h-4" aria-hidden="true" />
               </a>
@@ -69,7 +73,7 @@ export default function Footer() {
           {/* Services */}
           <nav aria-label="Services navigation">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-steel-500 mb-4">
-              Services
+              {t('servicesTitle')}
             </h3>
             <ul className="space-y-2.5">
               {serviceLinks.map((link) => (
@@ -88,7 +92,7 @@ export default function Footer() {
           {/* Company */}
           <nav aria-label="Company navigation">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-steel-500 mb-4">
-              Company
+              {t('companyTitle')}
             </h3>
             <ul className="space-y-2.5">
               {companyLinks.map((link) => (
@@ -107,7 +111,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-steel-500 mb-4">
-              Contact
+              {t('contactTitle')}
             </h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
@@ -146,20 +150,20 @@ export default function Footer() {
       <div className="border-t border-navy-800">
         <div className="container-xl py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-steel-600">
-            © {new Date().getFullYear()} Bodatec. All rights reserved. Lokeren, Belgium.
+            © {new Date().getFullYear()} {t('copyright')}
           </p>
           <div className="flex items-center gap-5">
             <Link
               href="/privacy"
               className="text-xs text-steel-600 hover:text-steel-300 focus-visible:outline-white transition-colors"
             >
-              Privacy Policy
+              {t('privacyPolicy')}
             </Link>
             <Link
               href="/terms"
               className="text-xs text-steel-600 hover:text-steel-300 focus-visible:outline-white transition-colors"
             >
-              Terms
+              {t('terms')}
             </Link>
           </div>
         </div>

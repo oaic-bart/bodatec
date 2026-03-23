@@ -1,36 +1,45 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/navigation'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/ui/Logo'
+import LanguageToggle from '@/components/ui/LanguageToggle'
 
-const services = [
-  { label: 'Electrical Engineering', href: '/services/electrical-engineering' },
-  { label: 'Testing & Commissioning', href: '/services/testing-commissioning' },
-  { label: 'Maintenance & Troubleshooting', href: '/services/maintenance-troubleshooting' },
-  { label: 'HV / MV Support', href: '/services/hv-mv-support' },
-  { label: 'Industrial Electrical Works', href: '/services/industrial-electrical-works' },
-  { label: 'Technical Specialist Support', href: '/services/technical-specialist-support' },
-]
-
-const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services', dropdown: services },
-  { label: 'Industries', href: '/industries' },
-  { label: 'Careers', href: '/careers' },
-]
+const serviceKeys = [
+  { key: 'electrical-engineering', href: '/services/electrical-engineering' },
+  { key: 'testing-commissioning', href: '/services/testing-commissioning' },
+  { key: 'maintenance-troubleshooting', href: '/services/maintenance-troubleshooting' },
+  { key: 'hv-mv-support', href: '/services/hv-mv-support' },
+  { key: 'industrial-electrical-works', href: '/services/industrial-electrical-works' },
+  { key: 'technical-specialist-support', href: '/services/technical-specialist-support' },
+] as const
 
 export default function Header() {
+  const t = useTranslations('nav')
+  const ts = useTranslations('services')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const pathname = usePathname()
   const dropdownRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
+
+  const services = serviceKeys.map((s) => ({
+    label: ts(`${s.key}.title`),
+    href: s.href,
+  }))
+
+  const navItems = [
+    { label: t('home'), href: '/' },
+    { label: t('about'), href: '/about' },
+    { label: t('services'), href: '/services', dropdown: services },
+    { label: t('industries'), href: '/industries' },
+    { label: t('careers'), href: '/careers' },
+  ]
 
   useEffect(() => {
     setServicesOpen(false)
@@ -71,7 +80,7 @@ export default function Header() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-navy-900 focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium"
       >
-        Skip to main content
+        {t('skipToContent')}
       </a>
 
       <header className="bg-white border-b border-steel-200 sticky top-0 z-50" role="banner">
@@ -138,7 +147,7 @@ export default function Header() {
                             role="menuitem"
                             className="block px-5 py-2.5 text-sm font-semibold text-navy-700 hover:bg-steel-50 focus-visible:outline-none focus-visible:bg-steel-50 transition-colors"
                           >
-                            All Services →
+                            {t('allServices')} →
                           </Link>
                         </div>
                       </div>
@@ -161,18 +170,21 @@ export default function Header() {
               )}
             </nav>
 
-            {/* ── CTA + mobile toggle ───────────────────────────── */}
+            {/* ── CTA + language + mobile toggle ───────────────── */}
             <div className="flex items-center gap-3">
+              <div className="hidden sm:block">
+                <LanguageToggle />
+              </div>
               <Link
                 href="/contact"
                 className="hidden lg:inline-flex btn-primary text-sm py-2.5 px-5"
               >
-                Discuss Your Project
+                {t('cta')}
               </Link>
               <button
                 className="lg:hidden p-2 text-steel-600 hover:text-navy-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600 transition-colors"
                 onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                aria-label={mobileOpen ? t('mobileMenuClose') : t('mobileMenuOpen')}
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-menu"
               >
@@ -226,7 +238,7 @@ export default function Header() {
                             className="block px-3 py-2 text-xs font-semibold text-navy-700 hover:text-navy-900 transition-colors"
                             onClick={() => setMobileOpen(false)}
                           >
-                            All Services
+                            {t('allServices')}
                           </Link>
                           {item.dropdown.map((sub) => (
                             <Link
@@ -257,13 +269,16 @@ export default function Header() {
                   )}
                 </div>
               ))}
-              <div className="pt-3 border-t border-steel-100">
+              <div className="pt-3 border-t border-steel-100 space-y-3">
+                <div className="sm:hidden px-3">
+                  <LanguageToggle />
+                </div>
                 <Link
                   href="/contact"
                   className="btn-primary w-full justify-center"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Discuss Your Project
+                  {t('cta')}
                 </Link>
               </div>
             </nav>

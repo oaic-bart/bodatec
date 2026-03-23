@@ -1,5 +1,6 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { ArrowRight, Cpu, ClipboardCheck, Wrench, Zap, HardHat, Users } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
@@ -21,6 +22,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ title, description, icon, href, className }: ServiceCardProps) {
   const Icon = iconMap[icon] ?? Zap
+  const t = useTranslations('services')
 
   return (
     <Link
@@ -38,7 +40,7 @@ export default function ServiceCard({ title, description, icon, href, className 
       </h3>
       <p className="text-sm text-steel-600 leading-relaxed mb-4">{description}</p>
       <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-navy-700 group-hover:gap-2.5 transition-all duration-200">
-        Learn more <ArrowRight className="w-3.5 h-3.5" />
+        {t('learnMore')} <ArrowRight className="w-3.5 h-3.5" />
       </span>
     </Link>
   )

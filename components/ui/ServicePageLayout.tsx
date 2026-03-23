@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { ArrowRight, CheckCircle, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import CTABanner from '@/components/ui/CTABanner'
-import { services } from '@/data/services'
 
 interface ServicePageLayoutProps {
   title: string
@@ -15,6 +15,7 @@ interface ServicePageLayoutProps {
   whyBodatec?: string[]
   currentSlug: string
   image?: string
+  otherServices: { title: string; slug: string; href: string }[]
 }
 
 export default function ServicePageLayout({
@@ -28,8 +29,17 @@ export default function ServicePageLayout({
   whyBodatec,
   currentSlug,
   image,
+  otherServices,
 }: ServicePageLayoutProps) {
-  const otherServices = services.filter((s) => s.slug !== currentSlug).slice(0, 4)
+  const t = useTranslations('services')
+
+  const defaultWhyBodatec = [
+    t('defaultWhyBodatec.0'),
+    t('defaultWhyBodatec.1'),
+    t('defaultWhyBodatec.2'),
+    t('defaultWhyBodatec.3'),
+    t('defaultWhyBodatec.4'),
+  ]
 
   return (
     <>
@@ -40,7 +50,7 @@ export default function ServicePageLayout({
         <div className="container-xl py-20 lg:py-28 relative">
           <nav className="flex items-center gap-2 text-xs text-navy-400 mb-6" aria-label="Breadcrumb">
             <Link href="/services" className="hover:text-navy-300 focus-visible:outline-white transition-colors">
-              Services
+              {t('breadcrumbServices')}
             </Link>
             <ChevronRight className="w-3 h-3" aria-hidden="true" />
             <span className="text-steel-300" aria-current="page">{title}</span>
@@ -73,16 +83,16 @@ export default function ServicePageLayout({
                 </div>
               )}
 
-              {/* Overview — with left accent border */}
+              {/* Overview */}
               <div className="border-l-4 border-navy-600 pl-6">
-                <h2 className="text-lg font-semibold text-navy-900 mb-3">Overview</h2>
+                <h2 className="text-lg font-semibold text-navy-900 mb-3">{t('overview')}</h2>
                 <p className="text-steel-600 leading-relaxed">{description}</p>
               </div>
 
               {/* Scope of work */}
               <div>
                 <h2 className="text-xl font-bold text-navy-900 mb-1 pb-3 border-b border-steel-200">
-                  Scope of work
+                  {t('scopeOfWork')}
                 </h2>
                 <ul className="mt-5 space-y-3">
                   {scope.map((item) => (
@@ -97,7 +107,7 @@ export default function ServicePageLayout({
               {/* Typical deliverables */}
               <div className="bg-navy-950 p-6 lg:p-8">
                 <h2 className="text-base font-semibold text-white mb-5 uppercase tracking-wide text-xs">
-                  Typical deliverables
+                  {t('typicalDeliverables')}
                 </h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {deliverables.map((item) => (
@@ -109,10 +119,10 @@ export default function ServicePageLayout({
                 </ul>
               </div>
 
-              {/* Ideal for — with subtle bg on each item */}
+              {/* Ideal for */}
               <div>
                 <h2 className="text-xl font-bold text-navy-900 mb-1 pb-3 border-b border-steel-200">
-                  Typical clients and applications
+                  {t('typicalClients')}
                 </h2>
                 <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {idealFor.map((item) => (
@@ -132,17 +142,9 @@ export default function ServicePageLayout({
             <div className="space-y-5">
               {/* Why Bodatec */}
               <div className="bg-navy-900 p-6 text-white lg:sticky lg:top-24">
-                <p className="section-label-light mb-4">Why Bodatec</p>
+                <p className="section-label-light mb-4">{t('whyBodatecLabel')}</p>
                 <ul className="space-y-3">
-                  {(
-                    whyBodatec ?? [
-                      'Qualified engineers with hands-on field experience',
-                      'Structured processes and full documentation',
-                      'Clear scope and direct communication',
-                      'Belgian-based, available at short notice',
-                      'Flexible engagement options',
-                    ]
-                  ).map((item) => (
+                  {(whyBodatec ?? defaultWhyBodatec).map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-sm text-steel-300">
                       <CheckCircle className="w-3.5 h-3.5 text-navy-400 mt-0.5 flex-shrink-0" aria-hidden="true" />
                       {item}
@@ -154,7 +156,7 @@ export default function ServicePageLayout({
                     href="/contact"
                     className="btn-outline-white w-full justify-center text-sm focus-visible:outline-white"
                   >
-                    Discuss this service <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    {t('discussService')} <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                   </Link>
                 </div>
               </div>
@@ -162,7 +164,7 @@ export default function ServicePageLayout({
               {/* Related services */}
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-steel-500 mb-3">
-                  Other services
+                  {t('otherServices')}
                 </h3>
                 <div className="space-y-2">
                   {otherServices.map((s) => (
@@ -186,10 +188,10 @@ export default function ServicePageLayout({
       </section>
 
       <CTABanner
-        title={`Ready to discuss your ${title.toLowerCase()} requirement?`}
-        subtitle="Contact Bodatec for a direct conversation. We will give you an honest assessment and a clear proposal."
-        primaryLabel="Get in touch"
-        secondaryLabel="Back to Services"
+        title={t('ctaServiceTitle', { service: title.toLowerCase() })}
+        subtitle={t('ctaServiceSubtitle')}
+        primaryLabel={t('ctaGetInTouch')}
+        secondaryLabel={t('ctaBackToServices')}
         secondaryHref="/services"
       />
     </>
